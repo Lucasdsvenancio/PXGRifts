@@ -56,8 +56,9 @@ def recuperar_valores_itens():
         db.session.commit()
 
 def analisar_entrada(entrada):
-    padrao = r'(\d+)\s([\w\s]+?)(?=,| e|$)'
+    padrao = r'(\d+)\s([\w\s]+?)(?=,| e |\.|$)'
     itens = re.findall(padrao, entrada)
+    print(itens)
     itens_sem_preco = []
     for quantidade, item_nome in itens:
         item_nome = normalizar_item(item_nome)
