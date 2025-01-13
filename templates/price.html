@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Definir Preços</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Definir Preços</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <form action="{{ url_for('price') }}" method="post">
+                {% for item in itens %}
+                <div class="item-price">
+                    <label for="{{ item.nome }}">{{ item.nome }}</label>
+                    <input type="text" name="{{ item.nome }}" id="{{ item.nome }}" value="{{ item.valor }}" required>
+                </div>
+                {% endfor %}
+                <input type="submit" value="Salvar">
+            </form>
+        </div>
+    </main>
+</body>
+</html>

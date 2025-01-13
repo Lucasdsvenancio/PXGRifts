@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PXG Rifts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" href="https://pxgtools.com/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        function toggleForm() {
+            var formSection = document.getElementById('form-section');
+            if (formSection.style.display === 'none' || formSection.style.display === '') {
+                formSection.style.display = 'block';
+            } else {
+                formSection.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>PXG Rifts</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="items-section">
+                <h2>Itens</h2>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantidade</th>
+                            <th>Valor</th>
+                        </tr>
+                        {% for item in cache %}
+                        {% if item.quantidade > 0 %}
+                        <tr>
+                            <td>{{ item.nome }}</td>
+                            <td>{{ item.quantidade }}</td>
+                            <td>{{ formatar_valor(item.valor) }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <td colspan="2"><strong>Valor Total</strong></td>
+                            <td><strong>US$ {{ total_value }}</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <button onclick="toggleForm()">+</button>
+            <form action="{{ url_for('clear') }}" method="post" style="display: inline;">
+                <button type="submit">Clear</button>
+            </form>
+            <section class="form-section" id="form-section" style="display: none;">
+                <h2>Add Entry</h2>
+                <form action="{{ url_for('add') }}" method="post">
+                    <textarea name="entrada" id="entrada" rows="4" cols="50"></textarea><br>
+                    <input type="submit" value="Add">
+                </form>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
